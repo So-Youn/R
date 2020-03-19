@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1584599860914.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "105E340D",
+    "lastKnownWriteTime" : 1584600049,
+    "last_content_update" : 1584600049153,
+    "path" : "C:/iot/work/RWork/ifR.R",
+    "project_path" : "ifR.R",
+    "properties" : {
+        "cursorPosition" : "14,2",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
