@@ -1,7 +1,12 @@
 #mongodb 연동
 install.packages("mongolite")  
 library("stringr")    
-library("mongolite")
+library(mongolite)
+
+#mongodb에 저장하기 위해서는 크롤링을 해야한다.
+con <- mongo(collection = "crawl",
+             db = "bigdata",
+             url = "mongodb://127.0.0.1")
 
 url <-'https://www.clien.net/service/group/community'
 # readLines : url 접속 가능 
@@ -53,4 +58,30 @@ url_Val
 #### csv파일 생성####
 final_data <- cbind(title,hit,url_Val)
 final_data
-write.csv(final_data,"crawl_data.csv")
+write.csv(final_data, "crawl_data.csv")
+#R에서 사용하는 데이터 : RData
+# csv 보다 처리속도가 빠르다.
+save(final_data,file = "craw_data.RData")
+length(title)
+length(hit)
+length(url_Val)
+
+
+####mongodb에 저장하기####
+if(con$count()>0){
+  con$drop()
+}
+final_data
+class(final_data)
+#insert가 되기 위해서는 data.frame으로 만들어주어야 한다.
+#즉, mongodb에 데이터를 저장하기 위해서 dataframe으로 변환
+final_data <- data.frame(final_data)
+class(final_data)
+con$insert(final_data)
+
+
+
+
+
+
+
