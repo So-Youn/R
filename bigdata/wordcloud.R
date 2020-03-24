@@ -1,3 +1,6 @@
+install.packages("wordcloud")
+install.packages("RColorBrewer") 
+
 install.packages("koNLP")
 install.packages("Sejong")
 install.packages("hash")
@@ -7,7 +10,8 @@ install.packages("RSQLite")
 install.packages("devtools")
 library(KoNLP)
 library(stringr)
-
+library(wordcloud)
+library(RColorBrewer)
 #####################koNLP의 함수를 테스트################
 # extractNoun : 명사만 추출하는 함수
 extractNoun("할리우드 톱스타 레오나르도 디카프리오는 '선행 전도사'다운 행보를 이어갔다.")
@@ -62,7 +66,7 @@ convertHangulStringToJamos("R는 많은 공헌자에의한 공동 프로젝트�
 
 # table 함수를 이용해서 단어의 빈도수 구하기
 # table 함수는 벡터에 저장되어 있는 모든 단어들의 빈도수를 계산해서 변환해준다.
-#   -> 단어를 이용해서 변수명으로 사용용
+#   -> 단어를 이용해서 변수명으로 사용
 tablewordlist <- table(wordlist)
 tablewordlist[1]
 tablewordlist[89]
@@ -70,10 +74,33 @@ names(tablewordlist)
 
 # 분석한 데이터를 이용해서 sort
 # 상위 100개만 출력
-sort(tablewordlist,decreasing = T)[1:100]
+tablewordlist <- sort(tablewordlist,decreasing = T)
+tablewordlist
 # 분석 결과를 가지고 기준을 적용해서 정리  -- 한글자를 빼고 작업
 nchar("글자수")
 tablewordlist_result <- tablewordlist[nchar(names(tablewordlist))>1]
 tablewordlist_result
 tablewordlist_result <- sort(tablewordlist_result,decreasing = T)[1:100]
-tablewordlist
+tablewordlist_result
+
+# RColorBrewer
+# 모든 색상의 팔레트를 보여준다.
+display.brewer.all(n = 10, exact.n = F)
+brewer.pal.info
+display.brewer.all(type="div")
+display.brewer.all(type="seq")
+display.brewer.all(type="qual")
+
+# 분석한 결과가 저장되어 있는 tablewordlist_result의 값을
+# 단어와 숫자로 각각 저장
+
+word <- names(tablewordlist_result)
+word
+count <- as.numeric(tablewordlist_result)
+count
+
+mycolor <- brewer.pal(n = 11,name = "RdBu")   #(이름,  maxcolors)
+wordcloud(words = word,freq = count,
+          random.order = F, colors = mycolor,
+          scale = c(7,0,3))
+
