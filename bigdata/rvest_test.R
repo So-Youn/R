@@ -12,7 +12,9 @@ url <- "https://www.clien.net/service/group/community"
 # html_attr() : attribute 추출
 
 # subject_fixed로 정의된 모든 태그 다 뽑아 온다/
+
 readPage <- read_html(url)
+readPage
 readPage %>% 
   html_nodes("span.subject_fixed")   -> title_data
 title_data
